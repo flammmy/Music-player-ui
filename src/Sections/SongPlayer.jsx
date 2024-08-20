@@ -1,6 +1,15 @@
-import React, { useRef, useEffect } from "react";
-import { useDispatch, useSelector } from 'react-redux';
-import { setCurrentSong, togglePlayPause, toggleMute, setProgress, setCurrentIndex, setSelectedSongId,setIsPlaying } from '../redux/slices/songSlice';
+import React, { useRef, useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  setCurrentSong,
+  togglePlayPause,
+  toggleMute,
+  setProgress,
+  setCurrentIndex,
+  setSelectedSongId,
+  setIsPlaying,
+  setCover,
+} from "../redux/slices/songSlice";
 import Play from "../Assets/play.png";
 import Next from "../Assets/next.png";
 import Back from "../Assets/back.png";
@@ -8,23 +17,33 @@ import Menu from "../Assets/menu.png";
 import Mute from "../Assets/mute.png";
 import Pause from "../Assets/pause.png";
 import Unmute from "../Assets/unmute.png";
+import Placeholder from "../Assets/placeholder.png";
 
 const SongPlayer = () => {
   const audioRef = useRef(null);
   const progressBarRef = useRef(null);
-  
+  const [imageLoading, setImageLoading] = useState(true);
+
   const dispatch = useDispatch();
-  const { currentSong, isPlaying, isMuted, currentIndex, songs, progress } = useSelector(state => state.song);
+  const {
+    currentSong,
+    isPlaying,
+    isMuted,
+    currentIndex,
+    songs,
+    progress,
+    cover,
+  } = useSelector((state) => state.song);
 
   useEffect(() => {
     const audio = audioRef.current;
-    dispatch(setIsPlaying(true))
+    dispatch(setIsPlaying(true));
     const updateProgress = () => {
       const currentTime = audio.currentTime;
       const progressPercentage = (currentTime / audio.duration) * 100;
       dispatch(setProgress(progressPercentage));
     };
-
+    setImageLoading(true)
     const playAudioAutomatically = () => {
       audio.play();
     };
@@ -45,6 +64,17 @@ const SongPlayer = () => {
       audioRef.current.pause();
     }
   }, [isPlaying]);
+
+
+  useEffect(() => {
+    const img = new Image();
+    img.src = `https://cms.samespace.com/assets/${currentSong.cover}`;
+    img.onload = () => {
+      dispatch(setCover(img.src)); 
+      setImageLoading(false);
+    };
+  }, [currentSong, dispatch]);
+  
 
   useEffect(() => {
     audioRef.current.muted = isMuted;
@@ -74,24 +104,38 @@ const SongPlayer = () => {
     dispatch(toggleMute());
   };
 
+
   const handleSeek = (e) => {
     const progressBar = e.target;
     const rect = progressBar.getBoundingClientRect();
     const clickX = e.clientX - rect.left;
-    const newTime = (clickX / progressBar.clientWidth) * audioRef.current.duration;
+    const newTime =
+      (clickX / progressBar.clientWidth) * audioRef.current.duration;
 
     audioRef.current.currentTime = newTime;
   };
 
   return (
-    <div className="flex flex-col place-items-start justify-center mb-6 md:mb-0" >
-      <h3 className="text-xl font-semibold text-white mb-1">{currentSong.name}</h3>
+    <div className="flex flex-col place-items-start justify-center mb-6 md:mb-0">
+      <h3 className="text-xl font-semibold text-white mb-1">
+        {currentSong.name}
+      </h3>
       <p className="text-sm text-gray-400 mb-6">{currentSong.artist}</p>
-      <img
-        src={`https://cms.samespace.com/assets/${currentSong.cover}`}
-        alt={`${currentSong.title} album cover`}
-        className="rounded-md w-[19rem] mb-9 aspect-square md:w-[22rem]"
-      />
+
+      {!imageLoading ? (
+        <img
+          src={cover}
+          alt={`${currentSong.title} album cover`}
+          className="rounded-md w-[19rem] mb-9 aspect-square md:w-[22rem]"
+        />
+      ) : (
+        <img
+          src={Placeholder}
+          alt={`${currentSong.title} album cover`}
+          className="rounded-md w-[19rem] mb-9 aspect-square md:w-[22rem]"
+        />
+      )}
+
       <div
         className="w-[19rem] mt-2 h-1 bg-gray-600 relative cursor-pointer rounded-full mb-3 md:w-[22rem]"
         onClick={handleSeek}
@@ -113,9 +157,17 @@ const SongPlayer = () => {
           />
           <button onClick={togglePlayPauseHandler}>
             {isPlaying ? (
-              <img src={Pause} alt="Play/Pause" className="w-7 h-7 md:w-10 md:h-10" />
+              <img
+                src={Pause}
+                alt="Play/Pause"
+                className="w-7 h-7 md:w-10 md:h-10"
+              />
             ) : (
-              <img src={Play} alt="Play/Pause" className="w-7 h-7 md:w-10 md:h-10" />
+              <img
+                src={Play}
+                alt="Play/Pause"
+                className="w-7 h-7 md:w-10 md:h-10"
+              />
             )}
           </button>
           <img
@@ -127,9 +179,17 @@ const SongPlayer = () => {
         </div>
         <button onClick={toggleMuteHandler}>
           {isMuted ? (
-            <img src={Unmute} alt="Mute/Unmute" className="w-7 h-7 md:w-10 md:h-10" />
+            <img
+              src={Unmute}
+              alt="Mute/Unmute"
+              className="w-7 h-7 md:w-10 md:h-10"
+            />
           ) : (
-            <img src={Mute} alt="Mute/Unmute" className="w-7 h-7 md:w-10 md:h-10" />
+            <img
+              src={Mute}
+              alt="Mute/Unmute"
+              className="w-7 h-7 md:w-10 md:h-10"
+            />
           )}
         </button>
       </div>

@@ -8,6 +8,7 @@ const initialState = {
   isMuted: false,
   currentIndex: 0,
   progress: 0,
+  cover:null
 };
 
 const songSlice = createSlice({
@@ -38,6 +39,9 @@ const songSlice = createSlice({
     setCurrentIndex(state, action) {
       state.currentIndex = action.payload;
     },
+    setCover(state,action){
+      state.cover = action.payload;
+    }
   },
 });
 
@@ -49,7 +53,8 @@ export const {
   toggleMute,
   setProgress,
   setCurrentIndex,
-  setIsPlaying
+  setIsPlaying,
+  setCover
 } = songSlice.actions;
 
 export default songSlice.reducer;
