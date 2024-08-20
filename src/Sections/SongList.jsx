@@ -60,7 +60,7 @@ const SongList = ({ songs, onSongSelect, selectedSongId, loading }) => {
         <Loader />
       ) : (
         <div className="flex-grow overflow-hidden">
-          <div className="space-y-4 mt-4 max-h-[calc(100vh-300px)] md:max-h-[calc(100vh-170px)] overflow-scroll">
+          <div className="space-y-4 mt-4 max-h-[calc(100vh-240px)] md:max-h-[calc(100vh-145px)] overflow-scroll">
             {filteredSongs.map((song, index) => (
               <SongItem
                 key={song.id}
