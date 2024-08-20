@@ -17,6 +17,23 @@ const Container = () => {
   const [showSongList, setShowSongList] = useState(false);
 
   useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth <= 768) { 
+        setShowSongList(true);
+      } else {
+        setShowSongList(false);
+      }
+    };
+
+    handleResize(); 
+    window.addEventListener('resize', handleResize);
+
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
+
+  useEffect(() => {
     const fetchSongs = async () => {
       try {
         const response = await axios.get('https://cms.samespace.com/items/songs');
@@ -56,17 +73,15 @@ const Container = () => {
         <Header />
       </div>
 
-      {/* Toggle Button for SongList */}
-      <div className="flex justify-end md:hidden p-4">
+      <div className="flex justify-center md:hidden p-4">
         <button 
           className="text-white px-4 py-2 rounded-md"
           onClick={() => setShowSongList(!showSongList)}
         >
-          {!showSongList ? <MenuIcon className='h-6 w-6'/> : <XIcon className='h-6 w-6'/>}
+          {!showSongList ? <MenuIcon className='h-6 w-6'/>: <XIcon className='h-6 w-6'/>}
         </button>
       </div>
 
-      {/* Sliding SongList */}
       <div
         className={`absolute top-0 bottom-0 w-[100%] h-full bg-transparent transition-transform duration-300 ease-in-out z-10 ${
           showSongList ? 'transform translate-x-0' : 'transform -translate-x-full'
@@ -82,7 +97,6 @@ const Container = () => {
           />
       </div>
 
-      {/* SongPlayer with opacity transition */}
       <div
         className={`flex-grow col-span-1 flex flex-col items-center h-screen justify-center md:relative transition-opacity duration-300 z-0 ${
           showSongList ? 'opacity-0' : 'opacity-100'

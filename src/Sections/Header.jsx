@@ -8,7 +8,7 @@ const Header = () => {
       
       <img src={spotifyLogo} alt="Spotify Logo" className="w-24 mt-8 ml-8 md:w-32" />
 
-      <img src={userIcon} alt="User Icon" className="h-10 w-10 object-cover mt-4 mr-4 md:mb-4 md:ml-4" />
+      <img src={userIcon} alt="User Icon" className="h-8 w-8 object-cover mt-4 mr-4 md:mb-4 md:ml-4 md:h-10 md:w-10" />
     </div>
   );
 };
