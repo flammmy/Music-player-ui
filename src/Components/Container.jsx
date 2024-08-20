@@ -62,7 +62,7 @@ const Container = () => {
           className="text-white px-4 py-2 rounded-md"
           onClick={() => setShowSongList(!showSongList)}
         >
-          {!showSongList ? <MenuIcon className='h-8 w-8'/> : <XIcon className='h-8 w-8'/>}
+          {!showSongList ? <MenuIcon className='h-6 w-6'/> : <XIcon className='h-6 w-6'/>}
         </button>
       </div>
 
@@ -70,7 +70,7 @@ const Container = () => {
       <div
         className={`absolute top-0 bottom-0 w-[100%] h-full bg-transparent transition-transform duration-300 ease-in-out z-10 ${
           showSongList ? 'transform translate-x-0' : 'transform -translate-x-full'
-        } md:w-[432px] md:relative md:translate-x-0 md:flex md:flex-col mt-28 md:mt-0 overflow-none`}
+        } md:w-[432px] md:relative md:translate-x-0 md:flex md:flex-col mt-24 md:mt-0 overflow-none`}
       >
           <SongList 
             songs={songs}

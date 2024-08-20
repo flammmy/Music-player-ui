@@ -29,7 +29,7 @@ const SongList = ({ songs, onSongSelect, selectedSongId, loading }) => {
     <div className="mt-[40px] pl-7 pr-7">
       <div className="flex space-x-7">
         <button
-          className={`text-2xl font-bold ${
+          className={`text-xl font-bold md:text-2xl ${
             activeTab === "forYou" ? "text-white" : "text-gray-500"
           }`}
           onClick={() => setActiveTab("forYou")}
@@ -37,7 +37,7 @@ const SongList = ({ songs, onSongSelect, selectedSongId, loading }) => {
           For You
         </button>
         <button
-          className={`text-2xl font-bold ${
+          className={`text-xl font-bold md:text-2xl ${
             activeTab === "topTracks" ? "text-white" : "text-gray-500"
           }`}
           onClick={() => setActiveTab("topTracks")}
@@ -46,7 +46,7 @@ const SongList = ({ songs, onSongSelect, selectedSongId, loading }) => {
         </button>
       </div>
 
-      <div className="relative mt-4 h-12 bg-[rgba(255,255,255,0.2)] rounded-lg flex justify-between place-items-center">
+      <div className="relative mt-4 h-10 bg-[rgba(255,255,255,0.2)] rounded-lg flex justify-between place-items-center md:h-10">
         <input
           type="text"
           placeholder="Search Song, Artist"

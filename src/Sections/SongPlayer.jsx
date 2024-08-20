@@ -84,16 +84,16 @@ const SongPlayer = () => {
   };
 
   return (
-    <div className="flex flex-col place-items-start justify-center">
+    <div className="flex flex-col place-items-start justify-center mb-6 md:mb-0" >
       <h3 className="text-xl font-semibold text-white mb-1">{currentSong.name}</h3>
       <p className="text-sm text-gray-400 mb-6">{currentSong.artist}</p>
       <img
         src={`https://cms.samespace.com/assets/${currentSong.cover}`}
         alt={`${currentSong.title} album cover`}
-        className="rounded-md max-w-[22rem] mb-4 aspect-square"
+        className="rounded-md w-[19rem] mb-9 aspect-square md:w-[22rem]"
       />
       <div
-        className="w-[22rem] mt-2 h-1 bg-gray-600 relative cursor-pointer rounded-full mb-3"
+        className="w-[19rem] mt-2 h-1 bg-gray-600 relative cursor-pointer rounded-full mb-3 md:w-[22rem]"
         onClick={handleSeek}
       >
         <div
@@ -102,34 +102,34 @@ const SongPlayer = () => {
           style={{ width: `${progress}%` }}
         />
       </div>
-      <div className="flex flex-row justify-between w-[22rem] mt-4">
-        <img src={Menu} alt="Menu" className="w-10 h-10" />
+      <div className="flex flex-row justify-between w-[19rem] md:w-[22rem] mt-4 cursor-pointer">
+        <img src={Menu} alt="Menu" className="w-7 h-7 md:w-10 md:h-10" />
         <div className="flex flex-row w-[180px] justify-evenly">
           <img
             src={Back}
             alt="Back"
             onClick={handleBack}
-            className="w-10 h-10"
+            className="w-7 h-7 md:w-10 md:h-10"
           />
           <button onClick={togglePlayPauseHandler}>
             {isPlaying ? (
-              <img src={Pause} alt="Play/Pause" className="w-10 h-10" />
+              <img src={Pause} alt="Play/Pause" className="w-7 h-7 md:w-10 md:h-10" />
             ) : (
-              <img src={Play} alt="Play/Pause" className="w-10 h-10" />
+              <img src={Play} alt="Play/Pause" className="w-7 h-7 md:w-10 md:h-10" />
             )}
           </button>
           <img
             src={Next}
             alt="Next"
             onClick={handleNext}
-            className="w-10 h-10"
+            className="w-7 h-7 md:w-10 md:h-10"
           />
         </div>
         <button onClick={toggleMuteHandler}>
           {isMuted ? (
-            <img src={Unmute} alt="Mute/Unmute" className="w-10 h-10" />
+            <img src={Unmute} alt="Mute/Unmute" className="w-7 h-7 md:w-10 md:h-10" />
           ) : (
-            <img src={Mute} alt="Mute/Unmute" className="w-10 h-10" />
+            <img src={Mute} alt="Mute/Unmute" className="w-7 h-7 md:w-10 md:h-10" />
           )}
         </button>
       </div>
